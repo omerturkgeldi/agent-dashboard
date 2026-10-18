@@ -8,7 +8,8 @@ backend API.
 
 ## Quick start
 
-You need Node.js 20 or newer and a running CleanBase.API.
+You need Node.js 20 or newer and a running CleanBase.API
+([omerturkgeldi/agent-api](https://github.com/omerturkgeldi/agent-api)).
 
 ```bash
 cp .env.example .env.local     # then set API_URL to the address of the backend

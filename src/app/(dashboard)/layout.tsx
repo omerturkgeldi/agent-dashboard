@@ -7,7 +7,8 @@ import { getLanguages } from "@/lib/server/languages";
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
   const user = await getCurrentUser();
-  if (!user) redirect("/login");
+  // proxy.ts lets only requests with a token through, so no user here means the backend rejected the token.
+  if (!user) redirect("/api/auth/expired");
 
   return (
     <SidebarProvider>
