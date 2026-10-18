@@ -1,0 +1,11 @@
+.git
+.next
+node_modules
+.env*
+!.env.example
+.agent-office
+*.tsbuildinfo
+next-env.d.ts
+npm-debug.log*
+Dockerfile
+.dockerignore

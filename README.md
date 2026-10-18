@@ -19,6 +19,13 @@ npm run dev                    # http://localhost:3000
 
 Other commands: `npm run build` and `npm start` (production), `npm run lint`.
 
+### With Docker
+
+To run the dashboard, the backend and PostgreSQL together with one command, clone
+[agent-api](https://github.com/omerturkgeldi/agent-api) next to this repo and run `docker compose up -d --build` in it
+(its README has the details). The dashboard is then at http://localhost:3000. This repo's `Dockerfile` builds the
+dashboard image; `API_URL` is read when the container starts.
+
 To sign in on a fresh database, the backend creates a first SuperAdmin from its `SeedAdmin` setting
 (`appsettings.Development.json`: `Email` and `Password`). The backend's own README explains how to run it. It needs
 PostgreSQL with a **UTF-8** database.
