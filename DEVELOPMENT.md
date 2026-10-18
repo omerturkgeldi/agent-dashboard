@@ -10,7 +10,9 @@ npm install
 npm run dev                  # http://localhost:3000
 ```
 
-The backend needs the roles/pagination/role-assignment endpoints, so run CleanBase.API from the same version.
+The backend needs the roles/pagination/role-assignment endpoints, so run CleanBase.API
+([omerturkgeldi/agent-api](https://github.com/omerturkgeldi/agent-api)) from the same version; the dashboard's status card needs
+its `GET /health`.
 In Development the API seeds a first SuperAdmin from `SeedAdmin` in `appsettings.Development.json`.
 
 ## How it works
@@ -30,7 +32,7 @@ In Development the API seeds a first SuperAdmin from `SeedAdmin` in `appsettings
     never overwrite what translators saved. At runtime the texts come from `GET /api/translations/bundle/{language}`
     (cached for a minute, dropped right away when you save on the Translations page); the bundled files are only a
     safety net when the backend cannot be reached, and English fills any gap.
-  - **New texts reach the database** when you press "Scan code" on the Translations page, or run
+  - **New texts reach the database** when you press "Find new texts" on the Translations page, or run
     `npm run translations:sync` after a deploy (`API_URL`, `TRANSLATIONS_SYNC_EMAIL`, `TRANSLATIONS_SYNC_PASSWORD`;
     the account needs the Translator, Admin or SuperAdmin role). Every language gets an "untranslated" row and the
     translators get a notification. Changing an English text marks its translations "needs review".
