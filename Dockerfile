@@ -1,28 +1,32 @@
-# Production image of the dashboard. Built and started by the docker-compose.yml in the agent-api repo,
-# but also works on its own:  docker build -t agent-dashboard .  &&  docker run -p 3000:3000 -e API_URL=... agent-dashboard
+# The dashboard as a small production image: `docker build -t cleanbase-web .`, then
+# `docker run -p 3000:3000 -e API_URL=http://<backend>:8080 cleanbase-web`.
+# API_URL is read when the server starts, not at build time, so one image works with any backend.
 
-FROM node:24-alpine AS deps
+FROM node:24-alpine AS base
+ENV NEXT_TELEMETRY_DISABLED=1
+
+# 1. Dependencies, cached until package-lock.json changes.
+FROM base AS deps
 WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci --no-audit --no-fund
 
-FROM node:24-alpine AS build
+# 2. Build. output: "standalone" (next.config.ts) puts the server and only the node_modules it needs in .next/standalone.
+FROM base AS build
 WORKDIR /app
-ENV NEXT_TELEMETRY_DISABLED=1
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-RUN npm run build
+RUN npm run build && mkdir -p public
 
-# Only the standalone server (output: "standalone" in next.config.ts) and the static files.
-FROM node:24-alpine AS runtime
+# 3. Runtime: no npm, no sources, not root.
+FROM base AS runtime
 WORKDIR /app
 ENV NODE_ENV=production \
-    NEXT_TELEMETRY_DISABLED=1 \
-    PORT=3000 \
-    HOSTNAME=0.0.0.0
+    HOSTNAME=0.0.0.0 \
+    PORT=3000
 COPY --from=build --chown=node:node /app/.next/standalone ./
 COPY --from=build --chown=node:node /app/.next/static ./.next/static
+COPY --from=build --chown=node:node /app/public ./public
 USER node
 EXPOSE 3000
-# API_URL is read when the server runs, not at build time, so one image works with any backend.
 CMD ["node", "server.js"]

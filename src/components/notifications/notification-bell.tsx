@@ -1,14 +1,16 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { Bell } from "lucide-react";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { getNotifications, getUnreadCount } from "@/lib/api/notifications";
+import { usePreferences } from "@/lib/preferences";
 import type { Notification } from "@/lib/api/types";
 import { NotificationItem } from "./notification-item";
 import { useNotificationActions } from "./use-notification-actions";
@@ -22,7 +24,7 @@ export function NotificationBell() {
   const [open, setOpen] = useState(false);
   const { markRead, markAllRead } = useNotificationActions();
 
-  const { data: unread = 0 } = useQuery({
+  const { data: unread = 0, isSuccess: unreadLoaded } = useQuery({
     queryKey: ["notifications", "unread-count"],
     queryFn: getUnreadCount,
     refetchInterval: POLL_MS,
@@ -33,6 +35,17 @@ export function NotificationBell() {
     queryFn: () => getNotifications(false, 1, 6),
     enabled: open,
   });
+
+  // A toast when the unread count goes up (Settings can turn it off). Not on the first load: those are not new.
+  const { notificationToasts } = usePreferences();
+  const lastUnread = useRef<number | null>(null);
+  useEffect(() => {
+    if (!unreadLoaded) return;
+    const previous = lastUnread.current;
+    lastUnread.current = unread;
+    if (!notificationToasts || previous === null || unread <= previous) return;
+    toast(t("newToast", { count: unread - previous }), { action: { label: t("viewAll"), onClick: () => router.push("/notifications") } });
+  }, [unread, unreadLoaded, notificationToasts, t, router]);
 
   function openNotification(notification: Notification) {
     if (!notification.isRead) markRead.mutate(notification.id);

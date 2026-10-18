@@ -31,7 +31,8 @@
     "notifications": "Benachrichtigungen",
     "newUser": "Neuer Benutzer",
     "account": "Konto",
-    "translations": "Übersetzungen"
+    "translations": "Übersetzungen",
+    "settings": "Einstellungen"
   },
   "header": {
     "theme": "Design wechseln",
@@ -161,6 +162,23 @@
     "confirmPassword": "Neues Passwort bestätigen",
     "changed": "Passwort geändert"
   },
+  "settings": {
+    "title": "Einstellungen",
+    "description": "Deine Einstellungen für dieses Dashboard. Änderungen gelten sofort.",
+    "appearance": "Darstellung",
+    "appearanceDescription": "Wie das Dashboard aussieht.",
+    "theme": "Design",
+    "language": "Sprache",
+    "languageDescription": "Die Sprache der Oberfläche und der Meldungen der API.",
+    "interfaceLanguage": "Sprache der Oberfläche",
+    "tables": "Tabellen",
+    "tablesDescription": "Wie Listen beginnen. Du kannst es in jeder Tabelle weiterhin ändern.",
+    "pageSize": "Standardzeilen pro Seite",
+    "notifications": "Benachrichtigungen",
+    "notificationsDescription": "Wie neue Benachrichtigungen dich erreichen.",
+    "toasts": "Hinweis bei neuen Benachrichtigungen",
+    "toastsDescription": "Zeigt eine kurze Meldung, wenn eine neue Benachrichtigung eintrifft."
+  },
   "audit": {
     "title": "Audit-Protokoll",
     "description": "Wer hat wann was getan. Datenänderungen werden automatisch erfasst.",
@@ -234,7 +252,8 @@
         "title": "Neue Sprache hinzugefügt",
         "body": "{language} ({code}) wurde hinzugefügt. {count} Texte zu übersetzen."
       }
-    }
+    },
+    "newToast": "{count, plural, one {Du hast eine neue Benachrichtigung} other {Du hast # neue Benachrichtigungen}}"
   },
   "dataTable": {
     "search": "Suchen...",

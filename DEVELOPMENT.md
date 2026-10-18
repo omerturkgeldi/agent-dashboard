@@ -63,6 +63,9 @@ columns, row menu, page size and paging. Give it TanStack Table `columns` and gi
 - **Server-side** (`server={{ page, pageSize, total, onPageChange }}`): the API pages the data, put your own filters in
   `toolbar`. Sorting is off because the API decides the order. See `app/(dashboard)/logs/logs-table.tsx`.
 
+Page size: tables start with the user's "Default rows per page" (Settings). A server-side table gets it from
+`useTablePageSize()` (`src/lib/preferences.ts`), a client-side one by itself; `initialPageSize` overrides it.
+
 Also available: `DataTableRowActions` (the "..." menu), `createSelectColumn` (row selection checkboxes).
 
 ## Users and sessions

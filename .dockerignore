@@ -1,11 +1,16 @@
+# Only what `npm ci` and `next build` need goes into the image.
 .git
+.gitignore
 .next
 node_modules
+npm-debug.log*
 .env*
 !.env.example
-.agent-office
+coverage
 *.tsbuildinfo
 next-env.d.ts
-npm-debug.log*
 Dockerfile
 .dockerignore
+.agent-office
+.claude
+.DS_Store

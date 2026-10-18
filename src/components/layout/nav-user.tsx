@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { ChevronsUpDown, LogOut, UserCircle } from "lucide-react";
+import { ChevronsUpDown, LogOut, Settings, UserCircle } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
   DropdownMenu,
@@ -18,7 +18,7 @@ import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "@/c
 import { logout } from "@/lib/api/auth";
 import type { User } from "@/lib/api/types";
 
-/** Signed-in user card at the bottom of the sidebar, with profile and log out. */
+/** Signed-in user card at the bottom of the sidebar, with profile, settings and log out. */
 export function NavUser({ user }: { user: User }) {
   const t = useTranslations();
   const router = useRouter();
@@ -49,6 +49,9 @@ export function NavUser({ user }: { user: User }) {
             <DropdownMenuSeparator />
             <DropdownMenuItem render={<Link href="/profile" />}>
               <UserCircle /> {t("nav.profile")}
+            </DropdownMenuItem>
+            <DropdownMenuItem render={<Link href="/settings" />}>
+              <Settings /> {t("nav.settings")}
             </DropdownMenuItem>
             <DropdownMenuItem
               onClick={async () => {

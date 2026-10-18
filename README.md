@@ -17,18 +17,29 @@ npm install
 npm run dev                    # http://localhost:3000
 ```
 
-Other commands: `npm run build` and `npm start` (production), `npm run lint`.
-
-### With Docker
-
-To run the dashboard, the backend and PostgreSQL together with one command, clone
-[agent-api](https://github.com/omerturkgeldi/agent-api) next to this repo and run `docker compose up -d --build` in it
-(its README has the details). The dashboard is then at http://localhost:3000. This repo's `Dockerfile` builds the
-dashboard image; `API_URL` is read when the container starts.
+Other commands: `npm run build` and `npm start` (production), `npm run lint`. `npm start` warns that it "does not work
+with output: standalone": it still works locally, the warning is about the Docker image, which runs
+`.next/standalone/server.js` instead.
 
 To sign in on a fresh database, the backend creates a first SuperAdmin from its `SeedAdmin` setting
 (`appsettings.Development.json`: `Email` and `Password`). The backend's own README explains how to run it. It needs
 PostgreSQL with a **UTF-8** database.
+
+## Run with Docker
+
+The whole stack (PostgreSQL, the API and this dashboard) starts with one `docker compose up -d --build` from the
+compose file in [omerturkgeldi/agent-api](https://github.com/omerturkgeldi/agent-api). Clone both repositories side by
+side (`agent-api/` and `agent-dashboard/`), its README has the details.
+
+The dashboard's own image is built from the `Dockerfile` here (Node 24, `output: "standalone"`, runs as a non-root user):
+
+```bash
+docker build -t cleanbase-web .
+docker run -p 3000:3000 -e API_URL=http://<backend>:8080 cleanbase-web
+```
+
+`API_URL` is read when the container starts, so the same image works with any backend. The image runs in production
+mode, where the sign-in cookies are `Secure`: browsers accept them on `http://localhost`, any other address needs HTTPS.
 
 ## How it connects to the backend
 
@@ -91,6 +102,8 @@ Which page needs which role is listed in `src/lib/config/nav.ts`. The role names
   Create, edit, deactivate/activate, reset password, delete.
 - **Roles**, **Logs**, **Audit** (who changed what), **Notifications**, **Profile** (change password, your own
   sessions), **Translations** (see below).
+- **Settings:** theme, language, default rows per page of the tables and pop-ups for new notifications. They
+  apply right away and are kept in the browser (`src/lib/preferences.ts`; theme and language keep their own storage).
 - `Ctrl/Cmd + K` opens a command palette. Light, dark and system theme, and a language switcher, are in the header.
 
 ## Languages and translations
