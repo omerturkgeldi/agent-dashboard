@@ -31,7 +31,8 @@
     "notifications": "Bildirimler",
     "newUser": "Yeni kullanıcı",
     "account": "Hesap",
-    "translations": "Çeviriler"
+    "translations": "Çeviriler",
+    "settings": "Ayarlar"
   },
   "header": {
     "theme": "Temayı değiştir",
@@ -161,6 +162,23 @@
     "confirmPassword": "Yeni şifre (tekrar)",
     "changed": "Şifre değiştirildi"
   },
+  "settings": {
+    "title": "Ayarlar",
+    "description": "Bu panel için tercihleriniz. Değişiklikler hemen uygulanır.",
+    "appearance": "Görünüm",
+    "appearanceDescription": "Panelin nasıl göründüğü.",
+    "theme": "Tema",
+    "language": "Dil",
+    "languageDescription": "Arayüzün ve API mesajlarının dili.",
+    "interfaceLanguage": "Arayüz dili",
+    "tables": "Tablolar",
+    "tablesDescription": "Listelerin nasıl başladığı. Her tabloda yine değiştirebilirsiniz.",
+    "pageSize": "Sayfa başına varsayılan satır",
+    "notifications": "Bildirimler",
+    "notificationsDescription": "Yeni bildirimlerin size nasıl ulaştığı.",
+    "toasts": "Yeni bildirimlerde açılır mesaj",
+    "toastsDescription": "Yeni bir bildirim geldiğinde kısa bir mesaj gösterir."
+  },
   "audit": {
     "title": "Denetim kaydı",
     "description": "Kim, ne zaman, ne yaptı. Veri değişiklikleri otomatik kaydedilir.",
@@ -234,7 +252,8 @@
         "title": "Yeni dil eklendi",
         "body": "{language} ({code}) eklendi. Çevrilecek {count} metin var."
       }
-    }
+    },
+    "newToast": "{count, plural, one {Yeni bir bildiriminiz var} other {# yeni bildiriminiz var}}"
   },
   "dataTable": {
     "search": "Ara...",

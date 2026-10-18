@@ -1,7 +1,7 @@
-import { Bell, History, Languages, LayoutDashboard, ScrollText, ShieldCheck, UserCircle, UserPlus, type LucideIcon } from "lucide-react";
+import { Bell, History, Languages, LayoutDashboard, ScrollText, Settings, ShieldCheck, UserCircle, UserPlus, type LucideIcon } from "lucide-react";
 import { ROLES, type RoleName } from "@/lib/api/types";
 
-type Label = "dashboard" | "access" | "users" | "roles" | "logs" | "audit" | "translations" | "notifications" | "profile"; // keys in messages.nav
+type Label = "dashboard" | "access" | "users" | "roles" | "logs" | "audit" | "translations" | "notifications" | "profile" | "settings"; // keys in messages.nav
 type GroupLabel = "overview" | "management" | "system" | "account"; // keys in messages.nav
 
 interface NavLink {
@@ -59,6 +59,7 @@ export const navGroups: NavGroup[] = [
     items: [
       { label: "notifications", icon: Bell, href: "/notifications" },
       { label: "profile", icon: UserCircle, href: "/profile" },
+      { label: "settings", icon: Settings, href: "/settings" },
     ],
   },
 ];

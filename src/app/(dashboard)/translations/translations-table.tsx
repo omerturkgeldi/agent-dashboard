@@ -17,6 +17,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip
 import { refreshTranslations } from "@/i18n/actions";
 import { getTranslations, scanCode } from "@/lib/api/translations";
 import type { ManagedLanguage, TranslationRow, TranslationStatus } from "@/lib/api/types";
+import { useTablePageSize } from "@/lib/preferences";
 import { ExcelMenu } from "./excel-menu";
 import { TranslationCell } from "./translation-cell";
 
@@ -34,7 +35,7 @@ export function TranslationsTable({ language, languages, initialStatus }: { lang
   const [status, setStatus] = useState(statuses.includes(initialStatus as TranslationStatus) ? initialStatus! : ALL);
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(20);
+  const [pageSize, setPageSize] = useTablePageSize();
 
   const filter = { language: language.code, scope: scope === ALL ? undefined : scope, status: status === ALL ? undefined : status, search: search || undefined };
   const { data, isPending, isFetching, error } = useQuery({
