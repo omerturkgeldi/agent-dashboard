@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { getLogs } from "@/lib/api/logs";
 import type { Log, LogFilter } from "@/lib/api/types";
+import { useTablePageSize } from "@/lib/preferences";
 import { LogDetailDialog } from "./log-detail-dialog";
 import { levelVariant } from "./log-level";
 
@@ -29,7 +30,7 @@ export function LogsTable() {
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
   const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(20);
+  const [pageSize, setPageSize] = useTablePageSize();
   const [selected, setSelected] = useState<Log | null>(null);
 
   const filter: LogFilter = {

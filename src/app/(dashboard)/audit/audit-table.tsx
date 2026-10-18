@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { getAuditLogs } from "@/lib/api/audit";
 import type { AuditFilter, AuditLog } from "@/lib/api/types";
+import { useTablePageSize } from "@/lib/preferences";
 import { actionVariant, auditActions } from "./audit-actions";
 import { AuditDetailDialog } from "./audit-detail-dialog";
 
@@ -27,7 +28,7 @@ export function AuditTable() {
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
   const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(20);
+  const [pageSize, setPageSize] = useTablePageSize();
   const [selected, setSelected] = useState<AuditLog | null>(null);
 
   const filter: AuditFilter = {

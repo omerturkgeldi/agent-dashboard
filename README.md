@@ -102,6 +102,8 @@ Which page needs which role is listed in `src/lib/config/nav.ts`. The role names
   Create, edit, deactivate/activate, reset password, delete.
 - **Roles**, **Logs**, **Audit** (who changed what), **Notifications**, **Profile** (change password, your own
   sessions), **Translations** (see below).
+- **Settings:** theme, language, default rows per page of the tables and pop-ups for new notifications. They
+  apply right away and are kept in the browser (`src/lib/preferences.ts`; theme and language keep their own storage).
 - `Ctrl/Cmd + K` opens a command palette. Light, dark and system theme, and a language switcher, are in the header.
 
 ## Languages and translations

@@ -20,6 +20,7 @@ import { useTranslations } from "next-intl";
 import { ErrorState } from "@/components/data-state";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { PAGE_SIZE_OPTIONS, useTablePageSize } from "@/lib/preferences";
 import { cn } from "@/lib/utils";
 import { DataTableColumnHeader } from "./data-table-column-header";
 import { DataTablePagination } from "./data-table-pagination";
@@ -51,6 +52,7 @@ interface DataTableProps<TData> {
   enableRowSelection?: boolean;
   getRowId?: (row: TData) => string;
   pageSizeOptions?: number[];
+  /** Rows per page to start with. Default: the user's preference (Settings). */
   initialPageSize?: number;
 }
 
@@ -74,8 +76,8 @@ export function DataTable<TData>({
   onRowClick,
   enableRowSelection,
   getRowId,
-  pageSizeOptions = [10, 20, 50, 100],
-  initialPageSize = 10,
+  pageSizeOptions = PAGE_SIZE_OPTIONS,
+  initialPageSize,
 }: DataTableProps<TData>) {
   const t = useTranslations("dataTable");
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -83,10 +85,12 @@ export function DataTable<TData>({
   const [globalFilter, setGlobalFilter] = useState("");
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
-  const [pagination, setPagination] = useState({ pageIndex: 0, pageSize: initialPageSize });
+  const [pageIndex, setPageIndex] = useState(0);
+  const [pageSize, setPageSize] = useTablePageSize(initialPageSize);
+  const pagination = { pageIndex, pageSize };
 
   // A new search or filter shows the first page again. (TanStack's own auto reset warns on the first render.)
-  const showFirstPage = () => setPagination((current) => (current.pageIndex === 0 ? current : { ...current, pageIndex: 0 }));
+  const showFirstPage = () => setPageIndex(0);
 
   // Columns that give only a `meta.label` get the standard header (sort and hide menu).
   const tableColumns = useMemo(
@@ -129,7 +133,10 @@ export function DataTable<TData>({
     onPaginationChange: (updater) => {
       const current = server ? { pageIndex: server.page - 1, pageSize: server.pageSize } : pagination;
       const next = typeof updater === "function" ? updater(current) : updater;
-      if (!server) return setPagination(next);
+      if (!server) {
+        setPageIndex(next.pageSize !== current.pageSize ? 0 : next.pageIndex);
+        return setPageSize(next.pageSize);
+      }
       if (next.pageSize !== current.pageSize) server.onPageSizeChange?.(next.pageSize);
       else server.onPageChange(next.pageIndex + 1);
     },

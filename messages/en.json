@@ -31,7 +31,8 @@
     "notifications": "Notifications",
     "newUser": "New user",
     "account": "Account",
-    "translations": "Translations"
+    "translations": "Translations",
+    "settings": "Settings"
   },
   "header": {
     "theme": "Toggle theme",
@@ -161,6 +162,23 @@
     "confirmPassword": "Confirm new password",
     "changed": "Password changed"
   },
+  "settings": {
+    "title": "Settings",
+    "description": "Your preferences for this dashboard. Changes apply right away.",
+    "appearance": "Appearance",
+    "appearanceDescription": "How the dashboard looks.",
+    "theme": "Theme",
+    "language": "Language",
+    "languageDescription": "The language of the interface and of the API's messages.",
+    "interfaceLanguage": "Interface language",
+    "tables": "Tables",
+    "tablesDescription": "How lists start out. You can still change it in each table.",
+    "pageSize": "Default rows per page",
+    "notifications": "Notifications",
+    "notificationsDescription": "How new notifications reach you.",
+    "toasts": "Pop-up for new notifications",
+    "toastsDescription": "Shows a short message when a new notification arrives."
+  },
   "audit": {
     "title": "Audit trail",
     "description": "Who did what, and when. Data changes are recorded automatically.",
@@ -234,7 +252,8 @@
         "title": "New language added",
         "body": "{language} ({code}) was added. {count} texts to translate."
       }
-    }
+    },
+    "newToast": "{count, plural, one {You have a new notification} other {You have # new notifications}}"
   },
   "dataTable": {
     "search": "Search...",
