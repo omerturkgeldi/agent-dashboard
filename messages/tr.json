@@ -357,5 +357,14 @@
     "endAll": "Tüm oturumları sonlandır",
     "endOthers": "Diğer cihazlardan çıkış yap",
     "ended": "Oturum sonlandırıldı"
+  },
+  "errors": {
+    "notFoundTitle": "Sayfa bulunamadı",
+    "notFoundDescription": "Aradığınız sayfa yok ya da taşınmış.",
+    "backToDashboard": "Panele dön",
+    "errorTitle": "Bir şeyler ters gitti",
+    "errorDescription": "Beklenmeyen bir hata oluştu. Tekrar deneyin; sorun devam ederse bir yöneticiye başvurun.",
+    "retry": "Tekrar dene",
+    "reference": "Referans: {digest}"
   }
 }

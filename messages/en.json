@@ -357,5 +357,14 @@
     "endAll": "End all sessions",
     "endOthers": "Sign out other devices",
     "ended": "Session ended"
+  },
+  "errors": {
+    "notFoundTitle": "Page not found",
+    "notFoundDescription": "The page you are looking for does not exist or has been moved.",
+    "backToDashboard": "Back to dashboard",
+    "errorTitle": "Something went wrong",
+    "errorDescription": "An unexpected error occurred. Try again, and if it keeps happening, contact an administrator.",
+    "retry": "Try again",
+    "reference": "Reference: {digest}"
   }
 }
